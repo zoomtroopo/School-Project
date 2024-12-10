@@ -1,50 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Review Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2em;
+        }
+
+        .featured-review {
+            background-color: #f7f7f7;
+            padding: 1em;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-review img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .latest-reviews ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .latest-reviews li {
+            margin-bottom: 20px;
+        }
+
+        .latest-reviews img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            clear: both;
+        }
+    </style>
 </head>
 <body>
     <header>
+        <h1>Book Review Website</h1>
         <nav>
             <ul>
+                <li><a href="#">Home</a></li>
                 <li><a href="#">Reviews</a></li>
-                <li><a href="#">Authors</a></li>
-                <li><a href="#">Genres</a></li>
+                <li><a href="#">About</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section class="hero">
-            <img src="featured-book-cover.jpg" alt="Featured Book Cover">
-            <h1>Featured Book Review</h1>
-            <p>Brief summary of the book...</p>
+        <section class="featured-review">
+            <h2>Featured Review</h2>
+            <img src="book-cover.jpg" alt="Book Cover">
+            <h3>Book Title</h3>
+            <p>Review summary...</p>
+            <a href="#">Read Full Review</a>
         </section>
-        <section class="review-grid">
+        <section class="latest-reviews">
+            <h2>Latest Reviews</h2>
             <ul>
                 <li>
-                    <img src="book-cover-1.jpg" alt="Book Cover 1">
-                    <h2>Book Title 1</h2>
-                    <p>Author 1</p>
-                    <p>Rating: 4/5</p>
+                    <img src="book-cover1.jpg" alt="Book Cover 1">
+                    <h4>Book Title 1</h4>
+                    <p>Review summary 1...</p>
                 </li>
                 <li>
-                    <img src="book-cover-2.jpg" alt="Book Cover 2">
-                    <h2>Book Title 2</h2>
-                    <p>Author 2</p>
-                    <p>Rating: 3/5</p>
-                </li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Book Review Website</p>
-        <ul>
-            <li><a href="#">Social Media</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-    </footer>
-</body>
-</html>
+                    <img src="book-cover2.jpg
