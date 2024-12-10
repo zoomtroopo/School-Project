@@ -1,67 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Review Website</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f9f9f9;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
+        header {
             background-color: #333;
             color: #fff;
-            padding: 20px;
+            padding: 1em;
             text-align: center;
         }
 
-        .header h1 {
+        header h1 {
             margin: 0;
         }
 
-        .nav {
-            background-color: #444;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .nav ul {
+        nav ul {
             list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        .nav li {
+        nav li {
             display: inline-block;
             margin-right: 20px;
         }
 
-        .nav a {
+        nav a {
             color: #fff;
             text-decoration: none;
         }
 
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2em;
+        }
+
         .featured-review {
             background-color: #f7f7f7;
-            padding: 20px;
+            padding: 1em;
             margin-bottom: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -71,13 +55,6 @@
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
-        }
-
-        .latest-reviews {
-            background-color: #f7f7f7;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .latest-reviews ul {
@@ -97,35 +74,35 @@
             border-radius: 10px;
         }
 
-        .footer {
+        footer {
             background-color: #333;
             color: #fff;
-            padding: 10px;
+            padding: 1em;
             text-align: center;
             clear: both;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Book Review Website</h1>
-        </div>
-        <div class="nav">
+    <header>
+        <h1>Book Review Website</h1>
+        <nav>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Reviews</a></li>
                 <li><a href="#">About</a></li>
             </ul>
-        </div>
-        <div class="featured-review">
+        </nav>
+    </header>
+    <main>
+        <section class="featured-review">
             <h2>Featured Review</h2>
             <img src="book-cover.jpg" alt="Book Cover">
             <h3>Book Title</h3>
             <p>Review summary...</p>
             <a href="#">Read Full Review</a>
-        </div>
-        <div class="latest-reviews">
+        </section>
+        <section class="latest-reviews">
             <h2>Latest Reviews</h2>
             <ul>
                 <li>
@@ -134,15 +111,4 @@
                     <p>Review summary 1...</p>
                 </li>
                 <li>
-                    <img src="book-cover2.jpg" alt="Book Cover 2">
-                    <h4>Book Title 2</h4>
-                    <p>Review summary 2...</p>
-                </li>
-            </ul>
-        </div>
-        <div class="footer">
-            <p>&copy; 2023 Book Review Website</p>
-        </div>
-    </div>
-</body>
-</html>
+                    <img src="book-cover2.jpg
