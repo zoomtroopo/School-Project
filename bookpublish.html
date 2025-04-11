@@ -1,3 +1,121 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Publishing Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 15px; }
+    input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
+    .rating input { width: auto; }
+    .rating label { display: inline; }
+    button { margin-top: 20px; padding: 10px 15px; }
+  </style>
+</head>
+<body>
+  <h1>Publish Your Book</h1>
+  <form id="bookForm">
+    <label>Author Name:
+      <input type="text" name="author" required>
+    </label>
+
+    <label>Genre:
+      <select name="genre" required>
+        <option value="">-- Select Genre --</option>
+        <option>Fantasy</option>
+        <option>Science Fiction</option>
+        <option>Romance</option>
+        <option>Mystery</option>
+        <option>Horror</option>
+        <option>Non-fiction</option>
+      </select>
+    </label>
+
+    <label>Book Description:
+      <textarea name="description" rows="4" required></textarea>
+    </label>
+
+    <label>Upload PDF File:
+      <input type="file" name="pdf" accept="application/pdf" required>
+    </label>
+
+    <label>Front Cover Image:
+      <input type="file" name="frontCover" accept="image/*" required>
+    </label>
+
+    <label>Back Cover Image:
+      <input type="file" name="backCover" accept="image/*" required>
+    </label>
+
+    <label>Rating (0-5):
+      <select name="rating" required>
+        <option value="">-- Select Rating --</option>
+        <option value="0">0 Stars</option>
+        <option value="1">1 Star</option>
+        <option value="2">2 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="5">5 Stars</option>
+      </select>
+    </label>
+
+    <label>Review:
+      <textarea name="review" rows="4" required></textarea>
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('bookForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      // Validate PDF file
+      const pdfFile = formData.get('pdf');
+      if (!pdfFile || pdfFile.type !== 'application/pdf') {
+        alert('Please upload a valid PDF file.');
+        return;
+      }
+
+      const payload = new FormData();
+      payload.append('author', formData.get('author'));
+      payload.append('genre', formData.get('genre'));
+      payload.append('description', formData.get('description'));
+      payload.append('pdf', pdfFile);
+      payload.append('frontCover', formData.get('frontCover'));
+      payload.append('backCover', formData.get('backCover'));
+      payload.append('rating', formData.get('rating'));
+      payload.append('review', formData.get('review'));
+
+      // Replace YOUR_API_KEY and YOUR_API_URL with your actual info
+      const apiKey = "saily";
+      const apiUrl = "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"; // e.g., https://yourserver.com/api/upload
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+          },
+          body: payload,
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert("Book submitted successfully!");
+          form.reset();
+        } else {
+          alert("Error: " + result.message);
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Something went wrong while submitting the form.");
+      }
+    });
+  </script>
+</body>
+</html>
