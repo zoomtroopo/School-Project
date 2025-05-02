@@ -92,8 +92,8 @@
       payload.append('review', formData.get('review'));
 
       // Replace YOUR_API_KEY and YOUR_API_URL with your actual info
-      const apiKey = "saily";
-      const apiUrl = "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"; // e.g., https://yourserver.com/api/upload
+      const apiKey = "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";
+      const apiUrl = "https://api.openai.com/v1/models"; // e.g., https://yourserver.com/api/upload
 
       try {
         const response = await fetch(apiUrl, {
