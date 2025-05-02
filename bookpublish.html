@@ -66,55 +66,66 @@
     <button type="submit">Submit</button>
   </form>
 
-  <script>
-    const form = document.getElementById('bookForm');
+  <!-- Firebase Upload Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
+    const firebaseConfig = {
+      apiKey: "AIzaSyAPYorSAxfDl0M3jC_vonhQEX6X1MIRXFI",
+      authDomain: "book-review-fcaf8.firebaseapp.com",
+      projectId: "book-review-fcaf8",
+      storageBucket: "book-review-fcaf8.appspot.com",
+      messagingSenderId: "610231337445",
+      appId: "1:610231337445:web:bc5b57e6214977ea37af0c",
+      measurementId: "G-WLB1Y2N8RT"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const form = document.getElementById('bookForm');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
       const formData = new FormData(form);
 
-      // Validate PDF file
-      const pdfFile = formData.get('pdf');
-      if (!pdfFile || pdfFile.type !== 'application/pdf') {
-        alert('Please upload a valid PDF file.');
-        return;
-      }
+      // Upload front cover
+      const frontCoverFile = formData.get("frontCover");
+      const frontCoverRef = ref(storage, 'covers/' + frontCoverFile.name);
+      await uploadBytes(frontCoverRef, frontCoverFile);
+      const frontCoverURL = await getDownloadURL(frontCoverRef);
 
-      const payload = new FormData();
-      payload.append('author', formData.get('author'));
-      payload.append('genre', formData.get('genre'));
-      payload.append('description', formData.get('description'));
-      payload.append('pdf', pdfFile);
-      payload.append('frontCover', formData.get('frontCover'));
-      payload.append('backCover', formData.get('backCover'));
-      payload.append('rating', formData.get('rating'));
-      payload.append('review', formData.get('review'));
+      // Upload back cover
+      const backCoverFile = formData.get("backCover");
+      const backCoverRef = ref(storage, 'covers/' + backCoverFile.name);
+      await uploadBytes(backCoverRef, backCoverFile);
+      const backCoverURL = await getDownloadURL(backCoverRef);
 
-      // Replace YOUR_API_KEY and YOUR_API_URL with your actual info
-      const apiKey = "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";
-      const apiUrl = "https://api.openai.com/v1/models"; // e.g., https://yourserver.com/api/upload
+      // Upload PDF
+      const pdfFile = formData.get("pdf");
+      const pdfRef = ref(storage, 'pdfs/' + pdfFile.name);
+      await uploadBytes(pdfRef, pdfFile);
+      const pdfURL = await getDownloadURL(pdfRef);
 
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-          },
-          body: payload,
-        });
+      // Save book info to Firestore
+      await addDoc(collection(db, "books"), {
+        author: formData.get("author"),
+        genre: formData.get("genre"),
+        description: formData.get("description"),
+        frontCover: frontCoverURL,
+        backCover: backCoverURL,
+        pdf: pdfURL,
+        rating: formData.get("rating"),
+        review: formData.get("review"),
+        createdAt: new Date()
+      });
 
-        const result = await response.json();
-        if (response.ok) {
-          alert("Book submitted successfully!");
-          form.reset();
-        } else {
-          alert("Error: " + result.message);
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Something went wrong while submitting the form.");
-      }
+      alert("Book published!");
+      form.reset();
     });
   </script>
 </body>
