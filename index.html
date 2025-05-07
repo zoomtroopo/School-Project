@@ -115,6 +115,7 @@
         const li = document.createElement('li');
         li.innerHTML = `
           <img src="${book.frontCover}" alt="Cover">
+          <h3>${book.title}</h3>
           <h4>${book.genre} - ${book.author}</h4>
           <p>${book.description.slice(0, 100)}...</p>
           <a href="book.html?id=${bookId}">Read Full</a>
