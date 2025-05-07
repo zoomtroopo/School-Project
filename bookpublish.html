@@ -95,48 +95,50 @@
     const form = document.getElementById('bookForm');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const formData = new FormData(form);
+      try {
+    const formData = new FormData(form);
 
-      // Upload front cover
-      const frontCoverFile = formData.get("frontCover");
-      const frontCoverRef = ref(storage, 'covers/' + frontCoverFile.name);
-      await uploadBytes(frontCoverRef, frontCoverFile);
-      const frontCoverURL = await getDownloadURL(frontCoverRef);
+    // Upload front cover
+    const frontCoverFile = formData.get("frontCover");
+    const frontCoverRef = ref(storage, 'covers/' + frontCoverFile.name);
+    await uploadBytes(frontCoverRef, frontCoverFile);
+    const frontCoverURL = await getDownloadURL(frontCoverRef);
 
-      // Upload back cover
-      const backCoverFile = formData.get("backCover");
-      const backCoverRef = ref(storage, 'covers/' + backCoverFile.name);
-      await uploadBytes(backCoverRef, backCoverFile);
-      const backCoverURL = await getDownloadURL(backCoverRef);
+    // Upload back cover
+    const backCoverFile = formData.get("backCover");
+    const backCoverRef = ref(storage, 'covers/' + backCoverFile.name);
+    await uploadBytes(backCoverRef, backCoverFile);
+    const backCoverURL = await getDownloadURL(backCoverRef);
 
-      // Upload PDF
-      const pdfFile = formData.get("pdf");
-      const pdfRef = ref(storage, 'pdfs/' + pdfFile.name);
-      await uploadBytes(pdfRef, pdfFile);
-      const pdfURL = await getDownloadURL(pdfRef);
+    // Upload PDF
+    const pdfFile = formData.get("pdf");
+    const pdfRef = ref(storage, 'pdfs/' + pdfFile.name);
+    await uploadBytes(pdfRef, pdfFile);
+    const pdfURL = await getDownloadURL(pdfRef);
 
-      // Save book info to Firestore
-      await addDoc(collection(db, "books"), {
-        author: formData.get("author"),
-        title: formData.get("title"),
-        genre: formData.get("genre"),
-        description: formData.get("description"),
-        frontCover: frontCoverURL,
-        backCover: backCoverURL,
-        pdf: pdfURL,
-        rating: formData.get("rating"),
-        review: formData.get("review"),
-        createdAt: new Date()
-      });
+    // Save book info to Firestore
+    await addDoc(collection(db, "books"), {
+      author: formData.get("author"),
+      title: formData.get("title"),
+      genre: formData.get("genre"),
+      description: formData.get("description"),
+      frontCover: frontCoverURL,
+      backCover: backCoverURL,
+      pdf: pdfURL,
+      rating: formData.get("rating"),
+      review: formData.get("review"),
+      createdAt: new Date()
+    });
 
-      alert("Book published!");
-      window.location.href = "index.html";
+    alert("Book published!");
+    window.location.href = "index.html";
 
-    } catch (error) {
-      console.error("Error publishing book:", error); // also fixed variable name from 'err' to 'error'
-      alert("Failed to publish book. Please check your input and try again.");
-    }
-  });
+  } catch (error) {
+    console.error("Error publishing book:", error);
+    alert("Failed to publish book. Please check your input and try again.");
+  }
+});
+
   </script>
 </body>
 </html>
